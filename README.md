@@ -9,4 +9,4 @@ FEATURE
 
 DEV_LOG
 =======
-* 2013.02.12 first edition, support top 10.  
+* 2013.02.12 first edition, support top 10, add pattern support.  

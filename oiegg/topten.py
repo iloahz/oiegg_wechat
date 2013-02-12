@@ -3,9 +3,12 @@ from func import *
 def updateTopicByRank(rank, url, title, avatar):
     t = TopTenTopic.query.filter_by(rank = rank).first()
     if t:
-        db.session.delete(t)
-    t = TopTenTopic(rank, url, title, avatar)
-    db.session.add(t)
+        t.url = url
+        t.title = title
+        t.avatar = avatar
+    else:
+        t = TopTenTopic(rank, url, title, avatar)
+        db.session.add(t)
     db.session.commit()
 
 def validate(c):

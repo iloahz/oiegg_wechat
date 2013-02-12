@@ -7,7 +7,7 @@ db = SQLAlchemy(app)
 
 class TopTenTopic(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    rank = db.Column(db.Integer)
+    rank = db.Column(db.Integer, unique = True)
     url = db.Column(db.String(127))
     title = db.Column(db.String(255))
     avatar = db.Column(db.String(127))
@@ -17,3 +17,18 @@ class TopTenTopic(db.Model):
         self.url = url
         self.title = title
         self.avatar = avatar
+
+class Pattern(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    input = db.Column(db.String(255), unique = True)
+    output = db.Column(db.String(255))
+
+    def __init__(self, input, output):
+        self.input = input
+        self.output = output
+
+def init():
+    db.create_all()
+
+if __name__ == '__main__':
+    init()
