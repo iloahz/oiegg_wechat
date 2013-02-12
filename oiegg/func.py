@@ -1,8 +1,17 @@
 from model import *
 import urllib
+import hashlib
 from xml.dom import minidom
 from BeautifulSoup import BeautifulSoup
 import time
+
+def validateSource(timestamp, nonce, signature):
+    token = '1373232810'
+    l = [token, timestamp, nonce]
+    l.sort()
+    s = ''.join(l)
+    s = hashlib.sha1(s).hexdigest()
+    return s == signature
 
 def getContentByUrl(url):
     print 'fetching ', url
