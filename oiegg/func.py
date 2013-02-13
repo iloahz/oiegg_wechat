@@ -6,7 +6,7 @@ from BeautifulSoup import BeautifulSoup
 import time
 
 def validateSource(timestamp, nonce, signature):
-    token = '1373232810'
+    token = WECHAT_TOKEN
     l = [token, timestamp, nonce]
     l.sort()
     s = ''.join(l)

@@ -44,11 +44,10 @@ def PatternHandler():
         o = request.form['output']
         pattern.updatePattern(i, o)
         return ''
-#        return redirect('/pattern')
 
 @app.route('/pattern/<input>')
 def PatternLookup(input):
     return pattern.getOutputByInput(input)
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(host = SERVER_HOST, port = SERVER_PORT, debug = True)
