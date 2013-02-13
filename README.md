@@ -3,9 +3,9 @@ WECHAT FOR OIEGG
 
 FEATURE
 =======
-* View top 10 topics on oiegg.com.
-* View information about full time jobs and intern.
-* View academic activities.
+- [x] View top 10 topics on oiegg.com.
+- [ ] View information about full time jobs and intern.
+- [ ] View academic activities.
 
 DEV LOG
 =======
