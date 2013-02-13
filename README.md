@@ -13,7 +13,7 @@ DEV LOG
 
 DEPLOYMENT
 ==========
-# activate virtualenv 'env'
-# set 'config.py'
-# run 'init.py'
-# run server
+- activate virtualenv 'env'
+- set 'config.py'
+- run 'init.py'
+- run server
