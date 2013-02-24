@@ -17,9 +17,12 @@ def validateSource(timestamp, nonce, signature):
 
 def getContentByUrl(url):
     print 'fetching ', url
+    t1 = time.time()
     while True:
         try:
             c = urllib.urlopen(url).read()
+            t2 = time.time()
+            print (t2 - t1) * 1000, 'ms'
             return c
         except:
             pass
