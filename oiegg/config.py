@@ -4,7 +4,7 @@ DATABASE_URI = 'mysql://oiegg:asdf1234@localhost:3306/oiegg'
 #port to listen
 SERVER_PORT = 5000
 
-#set to '0.0.0.0' to listen to all public ips.
+#set to '0.0.0.0' to listen to all public ips, or 'None' to restrict to localhost
 SERVER_HOST = None
 
 #the token set on mp.weixin.qq.com

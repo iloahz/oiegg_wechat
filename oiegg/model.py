@@ -28,6 +28,11 @@ class Pattern(db.Model):
         self.input = input
         self.output = output
 
+class Link:
+    """class fit the """
+    def __init__(self, title, desc, avatar, url):
+
+
 def init():
     db.create_all()
 
