@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 db = SQLAlchemy(app)
 
+
 class TopTenTopic(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     rank = db.Column(db.Integer, unique = True)
@@ -19,6 +20,7 @@ class TopTenTopic(db.Model):
         self.title = title
         self.avatar = avatar
 
+
 class Pattern(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     input = db.Column(db.String(255), unique = True)
@@ -28,9 +30,14 @@ class Pattern(db.Model):
         self.input = input
         self.output = output
 
+
 class Link:
-    """class fit the """
-    def __init__(self, title, desc, avatar, url):
+    """class fit wechat's link format"""
+    def __init__(self, title, desc, picUrl, url):
+        self.title = title
+        self.desc = desc
+        self.picUrl = picUrl
+        self.url = url
 
 
 def init():

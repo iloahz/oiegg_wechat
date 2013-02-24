@@ -7,30 +7,51 @@ import activity
 
 @app.route('/', methods = ['GET', 'POST'])
 def MainHandler():
-    try:
-        s = request.args.get('signature')
-        t = request.args.get('timestamp')
-        n = request.args.get('nonce')
-        if not validateSource(t, n, s):
+    s = request.args.get('signature')
+    t = request.args.get('timestamp')
+    n = request.args.get('nonce')
+    if not validateSource(t, n, s):
+        return 'Invalid Request!'
+    if request.method == 'GET':
+        try:
+            e = request.args.get('echostr')
+            return e
+        except:
             return 'Invalid Request!'
-        if request.method == 'GET':
-            try:
-                e = request.args.get('echostr')
-                return e
-            except:
-                return 'Invalid Request!'
-        else:
-            x = request.data
-            ToUserName, FromUserName, CreateTime, MsgType, Content = parseTextXml(x)
-            ToUserName, FromUserName = FromUserName, ToUserName
-            res = ''
-            if pattern.validate(Content):
-                res = pattern.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
-            elif topten.validate(Content):
-                res = topten.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
-            return res
-    except:
-        return render_template('index.html')
+    else:
+        x = request.data
+        ToUserName, FromUserName, CreateTime, MsgType, Content = parseTextXml(x)
+        ToUserName, FromUserName = FromUserName, ToUserName
+        res = ''
+        if pattern.validate(Content):
+            res = pattern.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
+        elif topten.validate(Content):
+            res = topten.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
+        return res
+    # try:
+    #     s = request.args.get('signature')
+    #     t = request.args.get('timestamp')
+    #     n = request.args.get('nonce')
+    #     if not validateSource(t, n, s):
+    #         return 'Invalid Request!'
+    #     if request.method == 'GET':
+    #         try:
+    #             e = request.args.get('echostr')
+    #             return e
+    #         except:
+    #             return 'Invalid Request!'
+    #     else:
+    #         x = request.data
+    #         ToUserName, FromUserName, CreateTime, MsgType, Content = parseTextXml(x)
+    #         ToUserName, FromUserName = FromUserName, ToUserName
+    #         res = ''
+    #         if pattern.validate(Content):
+    #             res = pattern.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
+    #         elif topten.validate(Content):
+    #             res = topten.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
+    #         return res
+    # except:
+    #     return render_template('index.html')
 
 @app.route('/topten/<cmd>')
 def TopTenHandler(cmd):
