@@ -20,8 +20,8 @@ DEPLOYMENT
 
 MAINTANCE
 ---------
-*   `GET` */topten*
-    *   `GET` */topten/update* updates top 10 topics
-*   `GET` */pattern* shows an interactive interface
-    `POST` */pattern* updates pattern(<input>, <output>)
-    *   `GET` *pattern/<input>* returns the corresponding output
+*   `GET` `/topten`
+    *   `GET` `/topten/update` updates top 10 topics
+*   `GET` `/pattern` shows an interactive interface
+    `POST` `/pattern` updates pattern(<input>, <output>)
+    *   `GET` `pattern/<input>` returns the corresponding output
