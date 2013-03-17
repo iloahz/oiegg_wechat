@@ -1,9 +1,6 @@
 *.pyc
 *~
 .idea/
-env/bin/
-env/include/
-env/lib/
-env/local/
+env/
 
 #!env/requirements.txt doesn't work....wierd
