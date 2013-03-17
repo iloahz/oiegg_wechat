@@ -1,8 +1,8 @@
 from model import *
-import urllib
+import urllib, urllib2
 import hashlib
 from xml.dom import minidom
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 import time
 
 
@@ -14,13 +14,13 @@ def validateSource(timestamp, nonce, signature):
     s = hashlib.sha1(s).hexdigest()
     return s == signature
 
-
-def getContentByUrl(url):
+'''retrieve content by url, default timeout is 3000ms'''
+def getContentByUrl(url, timeout=3000):
     print 'fetching ', url
     t1 = time.time()
     while True:
         try:
-            c = urllib.urlopen(url).read()
+            c = urllib2.urlopen(url, timeout=timeout).read()
             t2 = time.time()
             print (t2 - t1) * 1000, 'ms'
             return c
