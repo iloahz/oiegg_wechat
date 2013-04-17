@@ -2,6 +2,7 @@ from func import *
 
 
 def updateTopicByRank(rank, url, title, avatar):
+    # print rank, url, title, avatar
     t = TopTenTopic.query.filter_by(rank=rank).first()
     if t:
         t.url = url
@@ -50,4 +51,4 @@ def update():
         title = j.getText()
         url = 'http://www.oiegg.com/' + j.get('href')
         avatar = getAvatarByUrl(url)
-        updateTopicByRank(i, title, url, avatar)
+        updateTopicByRank(rank = i, title = title, url = url, avatar = avatar)
