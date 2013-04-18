@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import *
+import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
@@ -30,6 +31,22 @@ class Pattern(db.Model):
         self.input = input
         self.output = output
 
+
+class Activity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String(127), unique=True)
+    title = db.Column(db.String(127))
+    avatar = db.Column(db.String(127))
+    start = db.Column(db.Date)
+    end = db.Column(db.Date)
+
+    def __init__(self, ssM, ssD, stM, stD, title, url, avatar):
+        year = datetime.datetime.now().year
+        self.start = datetime.date(year=year, month=ssM, day=ssD)
+        self.end = datetime.date(year=year, month=stM, day=stD)
+        self.title = title
+        self.url = url
+        self.avatar = avatar
 
 class Link:
     """class fit wechat's link format"""

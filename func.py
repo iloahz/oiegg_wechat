@@ -7,13 +7,14 @@ import time
 
 
 def validateSource(timestamp, nonce, signature):
-    # return True
+    return True
     token = WECHAT_TOKEN
     l = [token, timestamp, nonce]
     l.sort()
     s = ''.join(l)
     s = hashlib.sha1(s).hexdigest()
     return s == signature
+
 
 '''retrieve content by url, default timeout is 3000ms'''
 def getContentByUrl(url, timeout=3000):
@@ -28,6 +29,15 @@ def getContentByUrl(url, timeout=3000):
         except:
             pass
 
+def getAvatarByUrl(url):
+    try:
+        res = getContentByUrl(url)
+        soup = BeautifulSoup(res)
+        soup = soup.find('div', attrs={'class': 'avatar'}).find('img')
+        url = 'http://www.oiegg.com/' + soup.get('src')
+        return url
+    except:
+        return 'http://www.oiegg.com/images/avatars/noavatar.gif'
 
 def parseTextXml(x):
     d = minidom.parseString(x)
@@ -39,7 +49,7 @@ def parseTextXml(x):
     return ToUserName, FromUserName, CreateTime, MsgType, Content
 
 
-def genTextXml(ToUserName, FromUserName, CreateTime, MsgType, Content, FuncFlag = '0'):
+def genTextXml(ToUserName, FromUserName, CreateTime, MsgType, Content, FuncFlag='0'):
     CreateTime = str(int(time.time()))
     r = minidom.getDOMImplementation()
     d = r.createDocument(None, 'xml', None)
@@ -71,7 +81,7 @@ def genTextXml(ToUserName, FromUserName, CreateTime, MsgType, Content, FuncFlag 
     return x.toxml()
 
 
-def genLinkXml(ToUserName, FromUserName, CreateTime, MsgType, Content, FuncFlag = '0'):
+def genLinkXml(ToUserName, FromUserName, CreateTime, MsgType, Content, FuncFlag='0'):
     CreateTime = str(int(time.time()))
     r = minidom.getDOMImplementation()
     d = r.createDocument(None, 'xml', None)

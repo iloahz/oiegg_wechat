@@ -30,17 +30,6 @@ def answer(ToUserName, FromUserName, CreateTime, MsgType, Content):
     return genLinkXml(ToUserName, FromUserName, CreateTime, MsgType, Content)
 
 
-def getAvatarByUrl(url):
-    try:
-        res = getContentByUrl(url)
-        soup = BeautifulSoup(res)
-        soup = soup.find('div', attrs={'class': 'avatar'}).find('img')
-        url = 'http://www.oiegg.com/' + soup.get('src')
-        return url
-    except:
-        return 'http://www.oiegg.com/images/avatars/noavatar.gif'
-
-
 def update():
     res = getContentByUrl('http://www.oiegg.com/index.php')
     soup = BeautifulSoup(res)
