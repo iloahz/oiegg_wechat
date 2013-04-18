@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from func import *
 
 
@@ -15,7 +16,7 @@ def updateTopicByRank(rank, url, title, avatar):
 
 
 def validate(c):
-    if c == '10':
+    if c == '10' or c.startswith('十大'):
         return True
     return False
 

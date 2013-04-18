@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from func import *
 from model import app
 from flask import Flask, request, redirect, render_template
@@ -19,6 +20,7 @@ def MainHandler():
             x = request.data
             ToUserName, FromUserName, CreateTime, MsgType, Content = parseTextXml(x)
             ToUserName, FromUserName = FromUserName, ToUserName
+            Content = Content.encode('utf-8')
             res = ''
             if pattern.validate(Content):
                 res = pattern.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
@@ -26,6 +28,9 @@ def MainHandler():
                 res = topten.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
             elif activity.validate(Content):
                 res = activity.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
+            else:
+                Content = u'听不懂你诶'
+                res = genTextXml(ToUserName, FromUserName, CreateTime, MsgType, Content)
             return res
     except:
         return render_template('index.html')

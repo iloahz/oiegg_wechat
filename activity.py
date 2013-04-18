@@ -3,7 +3,7 @@ from func import *
 
 
 def validate(c):
-    if c.startswith('hd'):
+    if c.startswith('hd') or c.startswith('活动'):
         return True
     return False
 
