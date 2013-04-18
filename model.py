@@ -39,14 +39,20 @@ class Activity(db.Model):
     avatar = db.Column(db.String(127))
     start = db.Column(db.Date)
     end = db.Column(db.Date)
+    view = db.Column(db.Integer)
+    reply = db.Column(db.Integer)
+    pri = db.Column(db.Integer)
 
-    def __init__(self, ssM, ssD, stM, stD, title, url, avatar):
+    def __init__(self, ssM, ssD, stM, stD, title, url, avatar, view, reply):
         year = datetime.datetime.now().year
         self.start = datetime.date(year=year, month=ssM, day=ssD)
         self.end = datetime.date(year=year, month=stM, day=stD)
         self.title = title
         self.url = url
         self.avatar = avatar
+        self.view = view
+        self.reply = reply
+        self.pri = reply * 10 + view
 
 class Link:
     """class fit wechat's link format"""
