@@ -31,8 +31,9 @@ def MainHandler():
             elif activity.validate(Content):
                 res = activity.answer(ToUserName, FromUserName, CreateTime, MsgType, Content)
             else:
-                Content = u'听不懂你诶'
-                res = genTextXml(ToUserName, FromUserName, CreateTime, MsgType, Content)
+                return
+                # Content = u'听不懂你诶'
+                # res = genTextXml(ToUserName, FromUserName, CreateTime, MsgType, Content)
             return res
     except:
         return render_template('index.html')
