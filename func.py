@@ -7,7 +7,7 @@ import time
 
 
 def validateSource(timestamp, nonce, signature):
-    return True
+    # return True
     token = WECHAT_TOKEN
     l = [token, timestamp, nonce]
     l.sort()

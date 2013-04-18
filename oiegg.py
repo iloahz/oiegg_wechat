@@ -12,8 +12,10 @@ def MainHandler():
         s = request.args.get('signature')
         t = request.args.get('timestamp')
         n = request.args.get('nonce')
+        if not s or not t or not n:
+            return render_template('index.html')
         if not validateSource(t, n, s):
-            return 'Invalid Request!'
+            return render_template('index.html')
         if request.method == 'GET':
             return request.args.get('echostr')
         else:
