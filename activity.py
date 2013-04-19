@@ -71,6 +71,16 @@ def clearActivity():
         db.session.delete(i)
     db.session.commit()
 
+def checkIfClosed(url):
+    res = getContentByUrl(url)
+    soup = BeautifulSoup(res)
+    soup = soup.find(name='a', attrs={'title' : '主题操作记录'})
+    if soup:
+        s = soup.getText()
+        if u'关闭' in s:
+            return True
+    return False
+
 def update():
     clearActivity()
     res = getContentByUrl("http://www.oiegg.com/forumdisplay.php?fid=172")
@@ -86,6 +96,7 @@ def update():
             num = num.split('/')
             reply = int(num[0])
             view = int(num[1])
-            updateActivityByDate(ssM, ssD, stM, stD, title, url, getAvatarByUrl(url), view, reply)
+            if not checkIfClosed(url):
+                updateActivityByDate(ssM, ssD, stM, stD, title, url, getAvatarByUrl(url), view, reply)
         except:
             pass
