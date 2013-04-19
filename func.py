@@ -4,7 +4,7 @@ import hashlib
 from xml.dom import minidom
 from bs4 import BeautifulSoup
 import time
-
+from collections import deque
 
 def validateSource(timestamp, nonce, signature):
     # return True
@@ -17,12 +17,23 @@ def validateSource(timestamp, nonce, signature):
 
 
 '''retrieve content by url, default timeout is 5000ms'''
+fetchCache = {}
+fetchCache.clear()
+fetchCacheUrl = deque()
+fetchCacheUrl.clear()
 def getContentByUrl(url, timeout=5000):
     print 'fetching ', url
+    if url in fetchCache:
+        print 'load from cache'
+        return fetchCache[url]
     t1 = time.time()
     while True:
         try:
             c = urllib2.urlopen(url, timeout=timeout).read()
+            if len(fetchCacheUrl) > 10:
+                del fetchCache[fetchCacheUrl.popleft()]
+            fetchCache[url] = c
+            fetchCacheUrl.append(url)
             t2 = time.time()
             print (t2 - t1) * 1000, 'ms'
             return c
