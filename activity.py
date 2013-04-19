@@ -76,9 +76,17 @@ def checkIfClosed(url):
     soup = BeautifulSoup(res)
     soup = soup.find(name='a', attrs={'title' : '主题操作记录'})
     if soup:
-        s = soup.getText()
-        if u'关闭' in s:
+        if u'关闭' in soup.getText():
             return True
+        url = 'http://www.oiegg.com/' + soup['href']
+        res = getContentByUrl(url)
+        soup = BeautifulSoup(res)
+        soup = soup.find(name='table', attrs={'summary' : '主题操作记录'})
+        print soup
+        for i in soup.findAll('tr'):
+            j = i.findAll('td')
+            if u'关闭' in j[2].getText():
+                return True
     return False
 
 def update():
