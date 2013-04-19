@@ -2,5 +2,6 @@
 *~
 .idea/
 env/
+config.py
 
 #!env/requirements.txt doesn't work....wierd
