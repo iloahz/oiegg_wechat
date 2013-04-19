@@ -16,8 +16,8 @@ def validateSource(timestamp, nonce, signature):
     return s == signature
 
 
-'''retrieve content by url, default timeout is 3000ms'''
-def getContentByUrl(url, timeout=3000):
+'''retrieve content by url, default timeout is 5000ms'''
+def getContentByUrl(url, timeout=5000):
     print 'fetching ', url
     t1 = time.time()
     while True:
@@ -27,7 +27,9 @@ def getContentByUrl(url, timeout=3000):
             print (t2 - t1) * 1000, 'ms'
             return c
         except:
-            pass
+            if t2 - t1 > 60:
+                print 'failed'
+                return ''
 
 def getAvatarByUrl(url):
     try:
