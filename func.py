@@ -17,23 +17,20 @@ def validateSource(timestamp, nonce, signature):
 
 
 '''retrieve content by url, default timeout is 5000ms'''
-fetchCache = {}
-fetchCache.clear()
-fetchCacheUrl = deque()
-fetchCacheUrl.clear()
+lastUrl = ''
+lastData = ''
 def getContentByUrl(url, timeout=5000):
     print 'fetching ', url
-    if url in fetchCache:
+    global lastUrl, lastData
+    if url == lastUrl:
         print 'load from cache'
-        return fetchCache[url]
+        return lastData
     t1 = time.time()
     while True:
         try:
             c = urllib2.urlopen(url, timeout=timeout).read()
-            if len(fetchCacheUrl) > 10:
-                del fetchCache[fetchCacheUrl.popleft()]
-            fetchCache[url] = c
-            fetchCacheUrl.append(url)
+            lastUrl = url
+            lastData = c
             t2 = time.time()
             print (t2 - t1) * 1000, 'ms'
             return c
