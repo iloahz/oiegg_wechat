@@ -90,21 +90,24 @@ def checkIfClosed(url):
     return False
 
 def update():
-    clearActivity()
-    res = getContentByUrl("http://www.oiegg.com/forumdisplay.php?fid=172")
-    soup = BeautifulSoup(res)
-    soup = soup.find("table", attrs={"id" : "forum_172"})
-    soup = soup.findAll('tbody')
-    for i in soup:
-        try:
-            title = i.find('span').getText()
-            ssM, ssD, stM, stD = parseDate(title)
-            url = 'http://www.oiegg.com/' + i.find('span').find('a')['href']
-            num = i.find(attrs = {'class' : 'nums'}).getText()
-            num = num.split('/')
-            reply = int(num[0])
-            view = int(num[1])
-            if not checkIfClosed(url):
-                updateActivityByDate(ssM, ssD, stM, stD, title, url, getAvatarByUrl(url), view, reply)
-        except:
-            pass
+    try:
+        clearActivity()
+        res = getContentByUrl("http://www.oiegg.com/forumdisplay.php?fid=172")
+        soup = BeautifulSoup(res)
+        soup = soup.find("table", attrs={"id" : "forum_172"})
+        soup = soup.findAll('tbody')
+        for i in soup:
+            try:
+                title = i.find('span').getText()
+                ssM, ssD, stM, stD = parseDate(title)
+                url = 'http://www.oiegg.com/' + i.find('span').find('a')['href']
+                num = i.find(attrs = {'class' : 'nums'}).getText()
+                num = num.split('/')
+                reply = int(num[0])
+                view = int(num[1])
+                if not checkIfClosed(url):
+                    updateActivityByDate(ssM, ssD, stM, stD, title, url, getAvatarByUrl(url), view, reply)
+            except:
+                pass
+    except:
+        pass

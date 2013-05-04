@@ -32,13 +32,16 @@ def answer(ToUserName, FromUserName, CreateTime, MsgType, Content):
 
 
 def update():
-    res = getContentByUrl('http://www.oiegg.com/index.php')
-    soup = BeautifulSoup(res)
-    soup = soup.find('div', attrs={'class': 'mainbox forumlist box on-left'})
-    soup = soup.findAll('li')
-    for i in range(0, len(soup)):
-        j = soup[i].findAll('a')[1]
-        title = j.getText()
-        url = 'http://www.oiegg.com/' + j.get('href')
-        avatar = getAvatarByUrl(url)
-        updateTopicByRank(rank = i, title = title, url = url, avatar = avatar)
+    try:
+        res = getContentByUrl('http://www.oiegg.com/index.php')
+        soup = BeautifulSoup(res)
+        soup = soup.find('div', attrs={'class': 'mainbox forumlist box on-left'})
+        soup = soup.findAll('li')
+        for i in range(0, len(soup)):
+            j = soup[i].findAll('a')[1]
+            title = j.getText()
+            url = 'http://www.oiegg.com/' + j.get('href')
+            avatar = getAvatarByUrl(url)
+            updateTopicByRank(rank = i, title = title, url = url, avatar = avatar)
+    except:
+        pass
